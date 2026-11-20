@@ -52,7 +52,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;position:r
 <div class="layer" id="bgLight"></div>
 <div class="layer" id="rain"></div>
 <div id="counter"><span id="cnum">1</span><small>步</small></div>
-<div class="head" id="h1">一段看不懂的代码，</div>
+<div class="head" id="h1">看不懂的讲义、代码、文件，</div>
 <div class="head" id="h2">变成<em>一步一步</em>的动画。</div>
 
 <div id="term">
@@ -81,6 +81,7 @@ const Q = new URLSearchParams(location.search);
 const FR = Q.get('frames');                       /* 录屏帧目录（file:// 网址） */
 const COUNT = JSON.parse(Q.get('count') || '{}'); /* 每段有几帧 */
 const EXTRA = Q.get('extra');                     /* 可选：第四张卡片的图片 */
+const EXTRA2 = Q.get('extra2');                   /* 可选：第三张卡片换成这张图（纯文字材料的例子） */
 const DURATION = 39;
 const $ = s => document.getElementById(s);
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -99,7 +100,7 @@ for (let c = 0; c < 6; c++) { const d = document.createElement('div'); d.textCon
 const CARDS = [
   { name: 'bubble', url: 'bubble-sort.html', x: 150, y: 150, r: -5, play: true },
   { name: 'search', url: 'binary-search.html', x: 1010, y: 120, r: 4, still: 330 },
-  { name: 'chart', url: 'binary-search.html#chart', x: 230, y: 470, r: 3, still: 9999 },
+  EXTRA2 ? { img: EXTRA2, url: 'compound-interest.html', x: 230, y: 470, r: 3 } : { name: 'chart', url: 'binary-search.html#chart', x: 230, y: 470, r: 3, still: 9999 },
 ];
 if (EXTRA) CARDS.push({ img: EXTRA, url: 'sliding-window.html', x: 960, y: 450, r: -3 });
 const cardEls = CARDS.map(c => { const e = document.createElement('div'); e.className = 'card';
@@ -112,7 +113,7 @@ const CAPS = [
   [18.4, 22.2, '每一步都对着<b>正在执行的那行代码</b>'],
   [22.8, 26.6, '真实数据画成折线，<b>一笔一笔</b>画出来'],
   [26.6, 30.4, '自检把<b>每一步</b>都跑一遍：不报错、不重叠'],
-  [31.0, 34.6, '算法 · 代码 · 讲义 · 实验数据，都能拆成<b>一步一步</b>'],
+  [31.0, 34.6, '代码 · 讲义 · 概念 · 文件，都能拆成<b>一步一步</b>'],
 ];
 const imgs = [];
 function setImg(img, src) { if (img.getAttribute('src') !== src) { img.src = src; imgs.push(img); } }

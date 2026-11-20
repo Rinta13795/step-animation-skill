@@ -14,9 +14,9 @@ const FPS = 30, DUR = 39, FF = process.env.FFMPEG || 'ffmpeg';
 const exe = [process.env.CHROME_PATH, 'C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome'].filter(Boolean).find(p => existsSync(p));
 const count = Object.fromEntries(['search', 'chart', 'bubble'].map(n => [n, readdirSync(join(framesDir, n)).length]));
-const extra = join(here, '..', 'docs', 'shot-window.png');
+const extra = join(here, '..', 'docs', 'shot-window.png'), extra2 = join(here, '..', 'docs', 'shot-interest.png');
 const url = pathToFileURL(join(here, 'promo.html')).href + '?' + new URLSearchParams({
-  frames: pathToFileURL(framesDir).href, count: JSON.stringify(count), extra: existsSync(extra) ? pathToFileURL(extra).href : '' });
+  frames: pathToFileURL(framesDir).href, count: JSON.stringify(count), extra: existsSync(extra) ? pathToFileURL(extra).href : '', extra2: existsSync(extra2) ? pathToFileURL(extra2).href : '' });
 
 const ff = spawn(FF, ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
   '-i', music, '-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
