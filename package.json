@@ -1,0 +1,16 @@
+{
+  "name": "step-animation-skill",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "分步动画学习网页生成器（Claude Code skill）",
+  "scripts": {
+    "check": "node check.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "~23.11.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

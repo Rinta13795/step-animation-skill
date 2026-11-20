@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>step-animation promo</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#141413}
+body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;position:relative}
+.layer{position:absolute;inset:0}
+#bgDark{background:radial-gradient(1200px 700px at 50% 45%,#22211f 0%,#141413 70%)}
+#bgLight{background:radial-gradient(1400px 900px at 50% 40%,#fffdf8 0%,#f3f0e8 60%,#e9e4d8 100%);opacity:0}
+#rain{display:flex;gap:56px;padding:0 60px;font:15px/1.9 Consolas,monospace;color:rgba(255,255,255,.075);white-space:pre;overflow:hidden}
+#rain div{flex:1}
+#counter{position:absolute;left:0;right:0;top:250px;text-align:center;color:#f4f1ea;font:700 220px/1 "Segoe UI",system-ui,sans-serif;letter-spacing:-4px}
+#counter small{font:500 54px "Microsoft YaHei",sans-serif;color:#a8a59c;margin-left:14px;letter-spacing:0}
+.head{position:absolute;left:0;right:0;text-align:center;color:#f4f1ea;font-weight:600;font-size:76px;letter-spacing:2px}
+.head em{font-style:normal;color:#F0997B}
+#h1{top:560px}#h2{top:670px}
+#term{position:absolute;left:470px;top:330px;width:980px;height:360px;border-radius:18px;background:#1e1d1b;border:1px solid #3a3936;box-shadow:0 30px 80px rgba(0,0,0,.5);padding:26px 34px;font:28px/1.75 Consolas,monospace;color:#d8d5cc}
+.dots{display:flex;gap:10px;margin-bottom:22px}.dots i{width:14px;height:14px;border-radius:50%;display:block}
+#term .cmd{color:#F0997B}#term .ok{color:#5DCAA5}#term .mu{color:#8a877e}
+#tl1,#tl2,#tl3{opacity:0}
+.caret{display:inline-block;width:14px;height:30px;background:#d8d5cc;vertical-align:-5px;margin-left:2px}
+#win{position:absolute;left:220px;top:56px;width:1480px;height:880px;border-radius:16px;background:#fff;box-shadow:0 40px 90px rgba(60,50,30,.22),0 0 0 1px rgba(0,0,0,.06);overflow:hidden;opacity:0}
+#bar{height:48px;background:#f1efe8;display:flex;align-items:center;padding:0 18px;gap:10px;border-bottom:1px solid #e3e1d8}
+#bar .url{margin-left:24px;background:#fff;border-radius:8px;padding:5px 18px;font:17px Consolas,monospace;color:#6b6a65;min-width:520px}
+#view{position:absolute;left:0;right:0;top:48px;bottom:0;overflow:hidden;background:#faf9f5}
+#view img{position:absolute;left:0;top:0;width:1480px}
+#pill{position:absolute;left:50%;top:968px;transform:translateX(-50%);background:rgba(28,27,25,.92);color:#fff;font-size:34px;font-weight:500;padding:14px 38px;border-radius:40px;white-space:nowrap;opacity:0;letter-spacing:1px}
+#pill b{color:#F0997B;font-weight:600}
+.card{position:absolute;width:760px;height:520px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(60,50,30,.25),0 0 0 1px rgba(0,0,0,.06);opacity:0}
+.card .cb{height:34px;background:#f1efe8;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid #e3e1d8;font:14px Consolas,monospace;color:#6b6a65}
+.card .cb i{width:10px;height:10px;border-radius:50%;display:block}
+.card .cv{position:absolute;top:34px;left:0;right:0;bottom:0;overflow:hidden;background:#faf9f5}
+.card img{width:760px;display:block}
+.tag{position:absolute;font:600 22px "Microsoft YaHei";color:#3d3d3a;background:#fff;border-radius:10px;padding:6px 16px;box-shadow:0 6px 20px rgba(60,50,30,.15)}
+#outro{opacity:0}
+#logo{position:absolute;left:50%;top:300px;transform:translateX(-50%);display:flex;gap:14px;align-items:center}
+#logo i{display:block;width:58px;height:58px;border-radius:12px;background:#e6e2d6}
+#logo i.o{background:#D85A30}#logo i.b{background:#378ADD}
+#logo span{font-size:46px;color:#b4b2a9}
+#oname{position:absolute;left:0;right:0;top:420px;text-align:center;font:700 112px "Segoe UI",system-ui,sans-serif;color:#1f1e1d;letter-spacing:-2px}
+#otag{position:absolute;left:0;right:0;top:575px;text-align:center;font-size:46px;color:#3d3d3a;font-weight:500}
+#opills{position:absolute;left:0;right:0;top:690px;display:flex;justify-content:center;gap:20px}
+#opills span{background:#fff;border:1px solid #e3e1d8;border-radius:30px;padding:10px 26px;font:26px Consolas,"Microsoft YaHei",monospace;color:#3d3d3a;box-shadow:0 6px 20px rgba(60,50,30,.08)}
+#opills span.s{color:#993C1D;background:#FAECE7;border-color:#F5C4B3}
+</style>
+</head>
+<body>
+<div class="layer" id="bgDark"></div>
+<div class="layer" id="bgLight"></div>
+<div class="layer" id="rain"></div>
+<div id="counter"><span id="cnum">1</span><small>步</small></div>
+<div class="head" id="h1">一段看不懂的代码，</div>
+<div class="head" id="h2">变成<em>一步一步</em>的动画。</div>
+
+<div id="term">
+  <div class="dots"><i style="background:#E24B4A"></i><i style="background:#EF9F27"></i><i style="background:#1D9E75"></i></div>
+  <div><span class="mu">›</span> <span class="cmd" id="typed"></span><span class="caret" id="caret"></span></div>
+  <div id="tl1"><span class="ok">●</span> 读材料 · 拆成 <b>4</b> 节 <b>33</b> 步</div>
+  <div id="tl2"><span class="ok">✓</span> trace · build · 自检 33/33 通过</div>
+  <div id="tl3"><span class="mu">→</span> binary-search.html</div>
+</div>
+
+<div id="win"><div id="bar"><div class="dots" style="margin:0"><i style="background:#E24B4A"></i><i style="background:#EF9F27"></i><i style="background:#1D9E75"></i></div><div class="url" id="url">binary-search.html</div></div>
+  <div id="view"><img id="shot"></div></div>
+
+<div id="cards"></div>
+<div id="pill"></div>
+
+<div class="layer" id="outro">
+  <div id="logo"><i></i><i class="o"></i><span>→</span><i class="b"></i></div>
+  <div id="oname">step-animation</div>
+  <div id="otag">把想学的东西，变成一步一步的动画</div>
+  <div id="opills"><span class="s">Claude Code Skill</span><span id="orepo">github.com/Rinta13795/step-animation-skill</span></div>
+</div>
+
+<script>
+const Q = new URLSearchParams(location.search);
+const FR = Q.get('frames');                       /* 录屏帧目录（file:// 网址） */
+const COUNT = JSON.parse(Q.get('count') || '{}'); /* 每段有几帧 */
+const EXTRA = Q.get('extra');                     /* 可选：第四张卡片的图片 */
+const DURATION = 39;
+const $ = s => document.getElementById(s);
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const easeOut = x => 1 - Math.pow(1 - x, 3);
+/* 在 [a, b] 内可见，前后各 d 秒淡入淡出 */
+const inout = (t, a, b, d = .5) => Math.min(seg(t, a, a + d), 1 - seg(t, b - d, b));
+const frameUrl = (name, i) => `${FR}/${name}/${String(clamp(Math.floor(i), 0, COUNT[name] - 1) + 1).padStart(4, '0')}.jpg`;
+
+/* 背景代码雨：用两个示例里的真实代码 */
+const CODE = `def binary_search(a, target):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == target:\n            return mid\n        elif a[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\nfor i in range(n - 1):\n    for j in range(n - 1 - i):\n        if a[j] > a[j + 1]:\n            a[j], a[j + 1] = a[j + 1], a[j]\ns = sum(a[:k])\nfor i in range(k, len(a)):\n    s += a[i] - a[i - k]\n    best = max(best, s)\n`;
+for (let c = 0; c < 6; c++) { const d = document.createElement('div'); d.textContent = (CODE.split('\n').slice(c * 3).join('\n') + CODE).repeat(4); $('rain').appendChild(d); }
+
+/* 第五幕的卡片 */
+const CARDS = [
+  { name: 'bubble', url: 'bubble-sort.html', x: 150, y: 150, r: -5, play: true },
+  { name: 'search', url: 'binary-search.html', x: 1010, y: 120, r: 4, still: 330 },
+  { name: 'chart', url: 'binary-search.html#chart', x: 230, y: 470, r: 3, still: 9999 },
+];
+if (EXTRA) CARDS.push({ img: EXTRA, url: 'sliding-window.html', x: 960, y: 450, r: -3 });
+const cardEls = CARDS.map(c => { const e = document.createElement('div'); e.className = 'card';
+  e.innerHTML = `<div class="cb"><i style="background:#E24B4A"></i><i style="background:#EF9F27"></i><i style="background:#1D9E75"></i><span style="margin-left:10px">${c.url}</span></div><div class="cv"><img></div>`;
+  $('cards').appendChild(e); return e; });
+
+const CAPS = [
+  [11.2, 14.8, '数字从格子里<b>飞</b>到结果里'],
+  [14.8, 18.4, '<b>橙框</b>在读，<b>蓝框</b>在写'],
+  [18.4, 22.2, '每一步都对着<b>正在执行的那行代码</b>'],
+  [22.8, 26.6, '真实数据画成折线，<b>一笔一笔</b>画出来'],
+  [26.6, 30.4, '自检把<b>每一步</b>都跑一遍：不报错、不重叠'],
+  [31.0, 34.6, '算法 · 代码 · 讲义 · 实验数据，都能拆成<b>一步一步</b>'],
+];
+const imgs = [];
+function setImg(img, src) { if (img.getAttribute('src') !== src) { img.src = src; imgs.push(img); } }
+
+/* 画出第 t 秒的画面；返回一个 Promise，图片都解码好了才 resolve */
+async function render(t) {
+  imgs.length = 0;
+  /* 第一幕 0–5.8：深色、代码雨、计数、标题 */
+  const a1 = 1 - seg(t, 5.2, 5.8);
+  $('rain').style.opacity = a1 * (1 - seg(t, 9.6, 10.4) * 0) * (t < 10.4 ? 1 : 0);
+  $('rain').style.transform = `translateY(${-t * 26}px)`;
+  $('counter').style.opacity = seg(t, .3, .9) * a1;
+  $('cnum').textContent = Math.max(1, Math.round(1 + 32 * easeOut(seg(t, .5, 2.6))));
+  $('counter').style.transform = `translateY(${(1 - easeOut(seg(t, .3, 1))) * 30}px)`;
+  [['h1', 2.0], ['h2', 2.7]].forEach(([id, s]) => { const e = $(id); const p = easeOut(seg(t, s, s + .7)); e.style.opacity = p * a1; e.style.transform = `translateY(${(1 - p) * 26}px)`; });
+  /* 第二幕 5.8–10.3：终端 */
+  const tp = inout(t, 5.8, 10.3, .5); $('term').style.opacity = tp; $('term').style.transform = `scale(${.97 + .03 * easeOut(seg(t, 5.8, 6.4))})`;
+  const cmd = '/step-animation 用动画讲讲二分查找'; const n = Math.floor(clamp((t - 6.3) / 1.6) * cmd.length);
+  $('typed').textContent = cmd.slice(0, n); $('caret').style.opacity = (n < cmd.length || Math.floor(t * 2.5) % 2) ? 1 : 0;
+  [['tl1', 8.1], ['tl2', 8.6], ['tl3', 9.1]].forEach(([id, s]) => $(id).style.opacity = seg(t, s, s + .25));
+  /* 背景从深到浅 */
+  $('bgLight').style.opacity = ease(seg(t, 10.0, 10.9));
+  /* 第三、四幕 10.6–30.6：浏览器窗口 */
+  const wp = inout(t, 10.6, 30.8, .6);
+  $('win').style.opacity = wp;
+  const zoom = t < 22.6 ? 1 + .025 * seg(t, 10.6, 22.6) : 1 + .025 * seg(t, 22.6, 30.8);
+  $('win').style.transform = `translateY(${(1 - easeOut(seg(t, 10.6, 11.3))) * 40}px) scale(${zoom})`;
+  if (t >= 10.4 && t < 31) {
+    const shot = $('shot');
+    if (t < 22.6) {
+      setImg(shot, frameUrl('search', (t - 10.9) * 30));
+      $('url').textContent = 'binary-search.html';
+      /* 讲代码那一句时，画面慢慢往下移，露出代码区 */
+      shot.style.transform = `translateY(${-470 * ease(seg(t, 18.0, 19.4)) * (1 - ease(seg(t, 21.8, 22.6)))}px)`;
+      shot.style.opacity = 1 - seg(t, 22.2, 22.6);
+    } else {
+      setImg(shot, frameUrl('chart', (t - 22.6) * 30 * 1.3));
+      $('url').textContent = 'binary-search.html  ·  ③ 为什么快';
+      shot.style.transform = 'none'; shot.style.opacity = seg(t, 22.6, 23.0);
+    }
+  }
+  /* 第五幕 30.6–34.8：拼贴 */
+  CARDS.forEach((c, i) => {
+    const e = cardEls[i], s = 30.7 + i * .22, p = easeOut(seg(t, s, s + .7)), out = 1 - seg(t, 34.4, 35.0);
+    e.style.opacity = p * out;
+    e.style.left = c.x + 'px'; e.style.top = c.y + 'px';
+    e.style.transform = `translateY(${(1 - p) * 60}px) rotate(${c.r}deg) scale(${1 + .02 * seg(t, s, 35)})`;
+    if (t > 30.4 && t < 35.2) { const im = e.querySelector('img');
+      if (c.img) setImg(im, c.img);
+      else setImg(im, frameUrl(c.name, c.play ? 40 + (t - 30.7) * 30 : c.still)); }
+  });
+  /* 字幕 */
+  const cap = CAPS.find(([a, b]) => t >= a && t < b);
+  const pill = $('pill');
+  if (cap) { if (pill.innerHTML !== cap[2]) pill.innerHTML = cap[2]; pill.style.opacity = inout(t, cap[0], cap[1], .35); pill.style.transform = `translateX(-50%) translateY(${(1 - easeOut(seg(t, cap[0], cap[0] + .4))) * 14}px)`; }
+  else pill.style.opacity = 0;
+  /* 第六幕 34.8–39：结尾 */
+  const op = seg(t, 35.0, 35.8);
+  $('outro').style.opacity = op;
+  $('logo').style.transform = `translateX(-50%) translateY(${(1 - easeOut(op)) * 20}px)`;
+  [...$('logo').children].forEach((e, i) => e.style.opacity = seg(t, 35.0 + i * .15, 35.4 + i * .15));
+  $('oname').style.transform = `translateY(${(1 - easeOut(seg(t, 35.2, 36))) * 24}px)`;
+  $('otag').style.opacity = seg(t, 35.8, 36.5); $('opills').style.opacity = seg(t, 36.4, 37.1);
+  await Promise.all(imgs.map(i => i.decode().catch(() => {})));
+  return true;
+}
+render(0);
+</script>
+</body>
+</html>

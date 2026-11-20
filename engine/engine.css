@@ -1,0 +1,62 @@
+/* step-animation engine — 样式。build.mjs 会把它整段内联进生成的网页。 */
+:root{--bg:#faf9f5;--card:#fff;--tx:#1f1e1d;--mu:#6b6a65;--bd:#e3e1d8;--co:#D85A30;--bl:#378ADD;--pos:#E1F5EE;--post:#0F6E56;--neg:#FCEBEB;--negt:#A32D2D;--hl:#FAEEDA;--hlt:#854F0B;--codebg:#f1efe8;--empty:#f4f3ee;--curline:#fde9dc}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1c1b;--card:#262624;--tx:#ecebe6;--mu:#a3a29c;--bd:#3a3936;--pos:#085041;--post:#9FE1CB;--neg:#791F1F;--negt:#F7C1C1;--hl:#633806;--hlt:#FAC775;--codebg:#2f2e2b;--empty:#2f2e2b;--curline:#4a3326}}
+*{box-sizing:border-box}
+html{scrollbar-gutter:stable}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:20px;font-weight:600;margin:0 0 12px}
+#tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+button{font:inherit;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+button:hover{border-color:var(--mu)}
+button.on{background:var(--bl);border-color:var(--bl);color:#fff}
+#stage{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:14px;min-height:430px;padding:28px 24px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.row,.flow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:28px}
+.col{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.arrow{font-size:26px;color:var(--mu);align-self:center}
+.gw{display:flex;flex-direction:column;gap:6px}
+.lab{font-size:13px;color:var(--mu)}
+.grid{display:grid;gap:3px}
+.idx{font:11px Consolas,monospace;color:var(--mu);text-align:center}
+.cell{display:flex;align-items:center;justify-content:center;border-radius:5px;font-family:Consolas,"Courier New",monospace;font-weight:600;background:var(--codebg);transition:background .45s,color .45s,transform .25s,opacity .45s}
+.cell.empty{background:var(--empty);outline:1px dashed var(--bd);outline-offset:-1px}
+.cell.pos{background:var(--pos);color:var(--post)}
+.cell.neg{background:var(--neg);color:var(--negt)}
+.cell.hl{background:var(--hl);color:var(--hlt)}
+.cell.dim{opacity:.28}
+.cell.done{background:var(--empty);color:var(--mu)}
+.cell.pop{transform:scale(1.18)}
+.cell.bright{outline:1px solid #b4b2a9;outline-offset:-1px}
+#stage.inst *{transition:none!important}
+.frame{position:absolute;border:3px solid;border-radius:8px;pointer-events:none;transition:left .55s cubic-bezier(.4,0,.2,1),top .55s cubic-bezier(.4,0,.2,1),width .55s cubic-bezier(.4,0,.2,1),height .55s cubic-bezier(.4,0,.2,1),opacity .3s;z-index:3}
+.mk{position:absolute;transform:translateX(-50%);padding:1px 7px;border-radius:6px;color:#fff;font:700 13px Consolas,monospace;white-space:nowrap;pointer-events:none;transition:left .55s cubic-bezier(.4,0,.2,1),top .55s cubic-bezier(.4,0,.2,1),opacity .3s;z-index:4}
+.fly{position:absolute;transform:translate(-50%,-50%);padding:3px 9px;border-radius:7px;background:var(--co);color:#fff;font:700 15px Consolas,monospace;z-index:6;white-space:nowrap}
+.val{min-width:110px;height:64px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:var(--empty);outline:1px dashed var(--bd);font:700 24px Consolas,monospace;padding:0 14px;transition:transform .25s}
+.val.pop{transform:scale(1.15)}
+.vars{font:15px Consolas,monospace;display:flex;flex-direction:column;gap:6px;min-width:180px}
+.vars .vr{display:flex;gap:8px;align-items:center;padding:2px 6px;border-radius:6px;transition:background .45s}
+.vars .vr.flash{background:var(--hl)}
+.vars .vk{color:var(--mu)}
+.vars .vv{font-weight:700}
+.tbl{border-collapse:collapse;font:13px Consolas,monospace}
+.tbl th{padding:3px 8px;border-bottom:1px solid var(--bd);color:var(--mu);font-weight:400}
+.tbl td{padding:3px 8px;text-align:center}
+.tbl tr.hlrow{background:var(--neg)}
+.chart svg{display:block;max-width:100%;height:auto;overflow:visible}
+#code{margin-top:12px;background:var(--codebg);border-radius:8px;padding:10px 14px;font:15px Consolas,monospace;white-space:pre-wrap}
+#code .ln{display:block;padding:0 6px;margin:0 -6px;border-radius:4px;opacity:.55}
+#code .ln.cur{background:var(--curline);opacity:1}
+#cap{margin-top:10px;font-size:16px;line-height:1.75;min-height:56px}
+#cap b{color:var(--co)}
+#cap code{font-family:Consolas,monospace;background:var(--codebg);padding:1px 5px;border-radius:4px}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.ctl select{font:inherit;padding:4px;border-radius:6px;border:1px solid var(--bd);background:var(--card);color:var(--tx)}
+.ctl label{font-size:14px;color:var(--mu)}
+#cnt{margin-left:auto;font-size:13px;color:var(--mu)}
+.prog{height:4px;background:var(--bd);border-radius:2px;margin-top:10px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--bl);transition:width .3s}
+.hint{font-size:13px;color:var(--mu);margin-top:8px}
+#checkPanel{margin-bottom:12px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;border:1px solid var(--bd);background:var(--card)}
+#checkPanel.ok{border-color:#1D9E75}
+#checkPanel.bad{border-color:#E24B4A}
+#checkPanel li{font-family:Consolas,monospace;font-size:13px}

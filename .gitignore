@@ -1,0 +1,4 @@
+node_modules/
+*.log
+promo/frames/
+promo/out/
